@@ -60,7 +60,7 @@ def login():
                         session['user'] = email
                         session['id'] = cred[0][0]
                         session['user_type'] = 'therapist'
-                        return redirect(url_for('index'))
+                        return redirect(url_for('profile'))
                     else:
                         flash('Bad Credentials! Try Again!')
                         return redirect(url_for('login_page'))     
@@ -80,7 +80,7 @@ def login():
                         session['id'] = cred[0][0]
                         session['user_type'] = 'client'
 
-                        return redirect(url_for('index'))
+                        return redirect(url_for('profile'))
                     else:
                         flash('Bad Credentials! Try Again!')
                         return redirect(url_for('login_page_client'))
@@ -91,7 +91,7 @@ def login():
 
 @app.route('/')
 def index():
-    return '<h1>Hello World</h1>'
+    return render_template('index2.html')
 
 
 @app.route("/add_new")
@@ -105,7 +105,7 @@ def todo_add_to_table():
     username, password, database, hostname, port = parse()
     title_ret= request.form.get("title")
     tags_ret= request.form.get("tags")
-    tags = tags_ret.split(",")
+    tags = tags_ret
     description_ret= request.form.get("description")
     time = datetime.now()
 	

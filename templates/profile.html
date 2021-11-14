@@ -22,7 +22,7 @@
 	<div class = "ui segment" id="div_int">
 		<p class = "ui big header" id = "white"> {{ post_info[1] }} </p><br> 
 		<p id = "white">{{ post_info[2] }} </p><br>
-		<p id = "white">{% for tag in post_info[4] %}
+		<p id = "white">{% for tag in post_info[4].split(',') %}
 		<a href = "/" id = "white">#{{ tag }}</a><br>
 		{% endfor %}</p>
 		
