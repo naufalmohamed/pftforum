@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #efefef !important;
+}
+
+.jsjhr .skfjh {
+  position: relative;
+  top: 4rem;
+}
+
+.jsjhr .skfjh .sfjhe {
+  background-color: #fff;
+  padding: 12px;
+  -webkit-box-shadow: 0px 0px 6px #ccc;
+  box-shadow: 0px 0px 6px #ccc;
+  height: 100%;
+}
+
+.jsjhr .skfjh .sfjhe .sjfsj img {
+  width: 140px;
+  margin-top: 9px;
+  border-radius: 50%;
+  margin-left: 8px;
+}
+
+.jsjhr .skfjh .sfjhe h5 {
+  font-size: 16px;
+}
+
+.jsjhr .skfjh .jfheuf {
+  background-color: #fff;
+  -webkit-box-shadow: 0px 0px 6px #ccc;
+  box-shadow: 0px 0px 6px #ccc;
+  padding: 34px;
+}
+
+.jsjhr .skfjh .jfheuf textarea {
+  border: navajowhite;
+  border-bottom: 1px solid #efefef;
+  outline: navajowhite;
+}
+
+.jsjhr .skfjh .box1 {
+  background-color: #fff;
+  -webkit-box-shadow: 0px 0px 6px #ccc;
+  box-shadow: 0px 0px 6px #ccc;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.jsjhr .skfjh .box1 .skfjkk .lkt40 img {
+  width: 33px;
+  border-radius: 50%;
+  height: 33px;
+}
+
+.jsjhr .skfjh .left_box {
+  background-color: #fff;
+  -webkit-box-shadow: 0px 0px 6px #ccc;
+  box-shadow: 0px 0px 6px #ccc;
+  padding: 34px;
+}
+
+.jsjhr .skfjh .left_box .dfkj .lkt40 img {
+  width: 30px;
+  border-radius: 50%;
+  height: 30px;
+  margin-right: 10px;
+}
+/*# sourceMappingURL=index.css.map */
+
+body {
+  background-color: #fbfbfb;
+}
+@media (min-width: 991.98px) {
+  main {
+    padding-left: 240px;
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 58px 0 0; /* Height of navbar */
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+  width: 240px;
+  z-index: 600;
+}
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    width: 100%;
+  }
+}
+.sidebar .active {
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.main-navbar {
+  background-color: #e1b2fb;
+}
