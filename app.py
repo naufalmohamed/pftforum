@@ -49,7 +49,7 @@ def login():
                     try:
                         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
                         cursor = dbconn.cursor()
-                        cursor.execute(f"SELECT * FROM user_cred WHERE email = %s AND type = 'therapist';",[email])
+                        cursor.execute(f"SELECT * FROM cred WHERE email = %s AND type = 'therapist';",[email])
                         cred = cursor.fetchall()
                         dbconn.commit()
                     except:
@@ -68,7 +68,7 @@ def login():
                     try:
                         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
                         cursor = dbconn.cursor()
-                        cursor.execute(f"SELECT * FROM user_cred WHERE email = %s AND type = 'client';",[email])
+                        cursor.execute(f"SELECT * FROM cred WHERE email = %s AND type = 'client';",[email])
                         cred = cursor.fetchall()
                         dbconn.commit()
                     except:
