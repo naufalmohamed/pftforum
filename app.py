@@ -107,7 +107,9 @@ def todo_add_to_table():
     tags_ret= request.form.get("tags")
     tags = tags_ret
     description_ret= request.form.get("description")
-    time = datetime.now()
+    today = date.today()
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
 	
     if len(title_ret) == 0 and len(description_ret) == 0:
         return redirect(url_for("profile"))
@@ -115,7 +117,7 @@ def todo_add_to_table():
     else:		
         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
         cursor = dbconn.cursor()
-        cursor.execute(f"""INSERT INTO posts (title,time_stamp,tags,content,user_id) VALUES (%s,%s,%s,%s,%s);""",(title_ret,time,tags,description_ret,session['id']))
+        cursor.execute(f"""INSERT INTO posts (title,tags,description,user_id,date,time) VALUES (%s,%s,%s,%s,%s,%s);""",(title_ret,tags,description_ret,session['id'],today,current_time))
         dbconn.commit()
         return redirect(url_for("profile"))
 

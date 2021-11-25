@@ -1,38 +1,45 @@
 {% extends 'profile.html' %}
-
-{% block main %}
+<!--Main layout-->
+{% block middle %}
 <div class="container jsjhr">
-	<div class="row skfjh">
-		<div class="col-md-8">
-	<form class = "ui form" action = "/add" method="POST">
-		<div class="ui form">
-			<div class="field">
-    				<label id = "white">Note Title</label>
-				<input type = "text" name = "title" placeholder = "Enter Note Title">
-  			</div>
-  		
-			<div class="field">
-    				<label id = "white">Description</label>
-    				<textarea type = "text" name = "description" placeholder = "Enter Something..." rows="10" cols="10"></textarea>	    		
-  			</div>
-  		
-  			<div class="field">
-    				<label id = "white">Enter Tags</label>
-				<input type = "text" name = "tags" placeholder = "Enter Tags Seperated by Comma (Ex: Tag1,Tag2)">
-  			</div>
-  	</form>
+<div class="row skfjh">
 
-  			<a href = "/add">
-			<button class="ui inverted green button" id = "white">
- 				 Noteefy
-			</button></a>
-			<a href = "/profile">
-			<button class="ui inverted red button" id = "white">
-  				Burn this stuff
-			</button></a>
-		</div>
+<div class="col-md-8">
+      <a href = "#"><button class="fluid ui button"><h3>Shout It Out    <i class="plus square icon"></i></h3></button></a><br>
+<div class="box1">
+<div class="d-flex skfjkk">
+ 
+</div>
+
+<form class = "ui form" action = "/add" method="POST">
+    <div class="ui form">
+        <div class="field">
+                <label id = "white">Note Title</label>
+            <input type = "text" name = "title" placeholder = "Enter Note Title">
+          </div>
+      
+        <div class="field">
+                <label id = "white">Description</label>
+                <textarea type = "text" name = "description" placeholder = "Enter Something..." rows="10" cols="10"></textarea>	    		
+          </div>
+      
+          <div class="field">
+                <label id = "white">Enter Tags</label>
+            <input type = "text" name = "tags" placeholder = "Enter Tags Seperated by Comma (Ex: Tag1,Tag2)">
+          </div>
+  </form>
+
+          <a href = "/add">
+        <button class="ui inverted green button" id = "white">
+              Noteefy
+        </button></a>
+        <a href = "/profile">
+        <button class="ui inverted red button" id = "white">
+              Burn this stuff
+        </button></a>
+    </div>
+
 </div>
 </div>
-</div>
-	
+
 {% endblock %}

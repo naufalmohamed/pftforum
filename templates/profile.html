@@ -174,12 +174,12 @@
 <!--Main Navigation-->
 
 <!--Main layout-->
-{% block main %}
+
 <main style="margin-top: 0px;">
   <div class="container pt-4"></div>
 </main>
 <!--Main layout-->
-
+{% block middle %}
 <div class="container jsjhr">
 <div class="row skfjh">
 
@@ -190,18 +190,18 @@
 <div class="box1">
 <div class="d-flex skfjkk">
     <div class="lkt40">
-        <img src="./Images/1.jpg" alt="">
+        <img src="static/images/img/1.jpg" alt="">
 
     </div>
     <div class="pl-2 pt-1">
-        <h6>Peter Parker</h6>
+        <h6>Peter Parker (posted on {{ post_info[5] }})</h6>
     </div>
  
 </div>
 <hr>
 <p class="text-muted">
-  <h3>{{ post_info[1] }}</h3><br>
-  {{ post_info[2] }}<br>
+  <h3>{{ post_info[2] }}</h3><br>
+  <pre>{{ post_info[3] }}</pre><br>
   {% for tag in post_info[4].split(',') %}
 		<a href = "/" id = "white">#{{ tag }}</a><br>
 	{% endfor %}
