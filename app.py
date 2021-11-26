@@ -176,7 +176,7 @@ def add_new():
 	
 	
 @app.route("/add", methods=["POST"])
-def todo_add_to_table():
+def add():
     email = session['user']
     username, password, database, hostname, port = parse()
     title_ret= request.form.get("title")
@@ -196,6 +196,16 @@ def todo_add_to_table():
         cursor.execute(f"""INSERT INTO posts (title,tags,description,user_id,date,time) VALUES (%s,%s,%s,%s,%s,%s);""",(title_ret,tags,description_ret,session['id'],today,current_time))
         dbconn.commit()
         return redirect(url_for("profile"))
+
+
+@app.route('/ad_listing')
+def ad_listing():
+    return render_template('ad_listing.html')
+
+
+@app.route('/intern_listing')
+def intern_listing():
+    return render_template("intern_listing.html")
 
 
 if __name__ == '__main__':

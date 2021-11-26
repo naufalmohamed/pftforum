@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
   <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  {% block style %}{% endblock %}
 
 </head>
 <body>
@@ -33,7 +34,7 @@
   <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse " style="background-color: #EFEFEF;">
     <div class="position-sticky">
       <div class="list-group list-group-flush mx-3 mt-5">
-        <a href="#" class="list-group-item list-group-item-action py-4 ripple"
+        <a href="/profile" class="list-group-item list-group-item-action py-4 ripple"
           ><i class="newspaper icon"></i><span> Feed </span></a
         >
         <a href="#" class="list-group-item list-group-item-action py-4 ripple">
@@ -44,10 +45,14 @@
         </a>
         <a href="#" class="list-group-item list-group-item-action py-4 ripple">
           <i class="fas fa-user-md"></i><span> Interested Therapists </span></a>
-        <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+        <a href="/ad_listing" class="list-group-item list-group-item-action py-4 ripple">
           <i class="far fa-calendar-alt"></i><span> Events </span></a>
-        <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+        <a href="/intern_listing" class="list-group-item list-group-item-action py-4 ripple">
           <i class="fas fa-user-graduate"></i><span> Internships </span></a>
+        <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+          <i class="fas fa-cogs"></i><span> Settings </span></a> 
+        <a href="/logout" class="list-group-item list-group-item-action py-4 ripple">
+          <i class="fas fa-sign-out-alt"></i><span> Logout </span></a>
           <hr>
         <div class = 'list-group-item list-group-item-action py-1 ripple' style = 'background-color: #EFEFEF;'>
           <p style = 'color: #95959a;'>
@@ -102,69 +107,22 @@
       <ul class="navbar-nav ms-auto d-flex flex-row">
         <!-- Notification dropdown -->
         <li class="nav-item dropdown">
-          <a
-            class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
-            href="#"
-            id="navbarDropdownMenuLink"
-            role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="fas fa-bell"></i>
-            <span class="badge rounded-pill badge-notification bg-danger">1</span>
-          </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdownMenuLink"
-          >
-            <li>
-              <a class="dropdown-item" href="#">Some news</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Another news</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </li>
-          </ul>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+          
         </li>
-
+            
         <!-- Icon dropdown -->
 
 
         <!-- Avatar -->
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-            href="#"
-            id="navbarDropdownMenuLink"
-            role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <img
-              src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
-              class="rounded-circle"
-              height="22"
-              alt=""
-              loading="lazy"
-            />
-          </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdownMenuLink"
-          >
-            <li>
-              <a class="dropdown-item" href="#">My profile</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Settings</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Logout</a>
-            </li>
-          </ul>
-        </li>
+        
       </ul>
     </div>
     <!-- Container wrapper -->
