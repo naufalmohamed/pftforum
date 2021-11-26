@@ -1,0 +1,92 @@
+{% extends 'profile.html' %}
+{% block middle %}
+<div class="container jsjhr">
+    <div class="row skfjh">
+    
+    <div class="col-md-8">
+          <a href = "#"><button class="fluid ui button"><h3>Shout It Out   <i class="plus square icon"></i></h3></button></a><br>
+    <div class="box1">
+    <div class="d-flex skfjkk">
+     <!---Put stuff here-->
+
+     <form action = '/edit_info' method="post">
+        <!-- 2 column grid layout with text inputs for the first and last names -->
+        <div class="row mb-4">
+          <div class="col">
+            <div class="form-outline">
+              <input type="text" name = 'first_name' class="form-control" value="{{ data['first_name'] }}" />
+              <label class="form-label" for="form6Example1">First name</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline">
+              <input type="text" name = 'last_name' class="form-control" />
+              <label class="form-label" for="form6Example2">Last name</label>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+          <input type="text" name = 'age' class="form-control" />
+          <label class="form-label" for="form6Example3">Age</label>
+        </div>
+      
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+          <input type="text" name = 'city' class="form-control" />
+          <label class="form-label" for="form6Example4">City</label>
+        </div>
+
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+            <input type="text" name = 'occupation' class="form-control" />
+            <label class="form-label" for="form6Example4">Occupation</label>
+          </div>
+
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+            <input type="text" name = 'concerns' class="form-control" />
+            <label class="form-label" for="form6Example4">Concerns</label>
+          </div>
+
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+            <input type="text" name = 'phonenumber' class="form-control" />
+            <label class="form-label" for="form6Example4">PhoneNumber</label>
+          </div>
+
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+            <input type="text" name = 'emergency_contact' class="form-control" />
+            <label class="form-label" for="form6Example4">Emergency Contact</label>
+          </div>
+
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+            <input type="text" name = 'relationship_status' class="form-control" />
+            <label class="form-label" for="form6Example4">Relationship Status</label>
+          </div>
+
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+            <input type="text" name = 'timeperiod' class="form-control" />
+            <label class="form-label" for="form6Example4">Time Period</label>
+          </div>
+
+          <!-- Text input -->
+        <div class="form-outline mb-4">
+            <input type="text" name = 'gender' class="form-control" />
+            <label class="form-label" for="form6Example4">Gender</label>
+          </div>
+      
+        <!-- Submit button -->
+        <a href="/edit_info"><button type="submit" class="btn btn-primary btn-block mb-4">Add Details</button></a>
+      </form>
+
+     <!---Put stuff here-->
+    </div>
+    </div>
+    </div>
+
+{% endblock %}
