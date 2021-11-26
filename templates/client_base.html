@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block leftnav %}
+<div class="list-group list-group-flush mx-3 mt-5">
+    <a href="/profile" class="list-group-item list-group-item-action py-4 ripple"
+      ><i class="newspaper icon"></i><span> Feed </span></a
+    >
+    <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+      <i class="fas fa-bullhorn"></i><span> Your Shout It Outs </span></a
+    >
+    <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+      <i class="fas fa-id-card"></i><span> Your Profile </span>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+      <i class="fas fa-user-md"></i><span> Interested Therapists </span></a>
+    <a href="/ad_listing" class="list-group-item list-group-item-action py-4 ripple">
+      <i class="far fa-calendar-alt"></i><span> Events </span></a>
+    <a href="/intern_listing" class="list-group-item list-group-item-action py-4 ripple">
+      <i class="fas fa-user-graduate"></i><span> Internships </span></a>
+    <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+      <i class="fas fa-cogs"></i><span> Settings </span></a> 
+    <a href="/logout" class="list-group-item list-group-item-action py-4 ripple">
+      <i class="fas fa-sign-out-alt"></i><span> Logout </span></a>
+      <hr>
+    <div class = 'list-group-item list-group-item-action py-1 ripple' style = 'background-color: #EFEFEF;'>
+      <p style = 'color: #95959a;'>
+        <a href = '#'>About.</a>
+        <a href = '#'>Team.</a>
+        <a href = '#'>Terms.</a> 
+        <a href = '#'>Privacy.</a> 
+        <a href = '#'>Contact.</a>
+        <a href = '#'>Advertise.</a> 
+      </p>
+      </div>
+  </div>
+{% endblock %}

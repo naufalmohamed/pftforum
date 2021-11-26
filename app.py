@@ -208,5 +208,15 @@ def intern_listing():
     return render_template("intern_listing.html")
 
 
+@app.route('/shoutitout')
+def shoutitout():
+    return render_template('shoutitout.html')
+
+
+@app.route('/test2')
+def test2():
+    return render_template('test2.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,50 +1,199 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  	<title>Noteefy</title>
-	
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
-
-	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-	<style>		
-	body {
-  		background-color: #E8DAEF
-;
-		}
-		
-	#white {
-		color: #17202A;	
-		}
-	#white_title {
-		color: #17202A;
-		font-family: 'Special Elite', cursive;
-		}
-	#div_int {
-		background-color: #F7E8FF  ;	
-		}
-	img {
-  		border-radius: 50%;
-	}
-	</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pocket Friendly Therapy</title>
+  <link rel="stylesheet" href="static/scss/SCSS/index.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  {% block style %}{% endblock %}
 
 </head>
-
 <body>
-<div style = "margin-top: 50px;" class = "ui container">
-	<h1 class = "ui center aligned header" id = "white_title">Forum T.</h1>
+    
+      <!--Main Navigation-->
+      
+      <!--Main layout-->
+      <main style="margin-top: 10px;">
+        <div class="container pt-4"></div>
+      </main>
+      <!--Main layout-->
+<!--  -->
+<!--Main Navigation-->
+<header>
+  <!-- Sidebar -->
+  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse " style="background-color: #EFEFEF;">
+    <div class="position-sticky">
+      <!--Left Side stuff here--> {% block leftnav %}{% endblock %}
+    </div>
+    </div>
+  </nav>
+  <!-- Sidebar -->
 
-{% block main %}
-		
-{% endblock %}		
+  <!-- Navbar -->
+  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #A98FB8 ;">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#sidebarMenu"
+        aria-controls="sidebarMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
 
-</div>	
-</body>
-</html>
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">
+        <p style = 'font-family: Special Elite, cursive; font-weight: 900; font-size: x-large;'>PFT</p>
+      </a>
+     
+      <!-- Right links -->
+      <ul class="navbar-nav ms-auto d-flex flex-row">
+        <!-- Notification dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+          
+        </li>
+        
+      </ul>
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+</header>
+<!--Main Navigation-->
 
+<!--Main layout-->
+
+<main style="margin-top: 0px;">
+	<div class="container pt-4"></div>
+  </main>
+  <!--Main layout-->
+  <div class="container jsjhr">
+  <div class="row skfjh">
+  
+  <div class="col-md-8">
+		{% block shoutitout %}<a href = "/add_new"><button class="fluid ui button"><h3>Shout It Out    <i class="plus square icon"></i></h3></button></a><br> {% endblock %}
+  
+ 
+  <div class="box1">
+  <div class="d-flex skfjkk">
+	  
+   
+  </div>
+  
+  {% block desc %}{% endblock %}
+
+  <div>
+	  
+  </div>
+  <div class="d-flex justify-content-around">
+	  
+	  
+	  
+  </div>
+  </div>
+
+  </div>
+  
+
+  
+  <div class="col-md-4">
+  <div class="left_box">
+  <span>
+	  Upcoming Events
+  </span>
+  <hr>
+  <div class="d-flex dfkj">
+	  <div class="lkt40">
+		  <img src="./Images/1.jpg" alt="">
+  
+	  </div>
+	  <div>
+		  Event 1, Banglore
+	  </div>
+  </div>
+  <hr>
+  <div class="d-flex dfkj">
+	  <div class="lkt40">
+		  <img src="./Images/2.jpg" alt="">
+  
+	  </div>
+	  <div>
+		  Event 2, Banglore
+	  </div>
+  </div>
+  <hr>
+  <div class="d-flex dfkj">
+	  <div class="lkt40">
+		  <img src="./Images/3.jpeg" alt="">
+  
+	  </div>
+	  <div>
+		Event 2, Banglore
+	  </div>
+  </div>
+  <hr>
+  <div class="d-flex dfkj">
+	  <div class="lkt40">
+		  <img src="./Images/4.jpg" alt="">
+  
+	  </div>
+	  <div>
+		Event 2, Banglore
+	  </div>
+  </div>
+  </div>
+  
+  <div class="left_box mt-3">
+	  <span>
+		  Ad
+	  </span>
+	  <hr>
+	 <img src="https://res.cloudinary.com/yaffa-publishing/image/fetch/v1456442193/http://yaffa-cdn.s3.amazonaws.com/adnews/live/images/dmImage/SourceImage/graph12_CE9EDD90-DC15-11E5-86900204D9902A1F.jpg" class="w-100" alt="">
+	  </div>
+  
+  <div class="left_box mt-3">
+  <span class="font-weight-medium">
+	  Thought For the Day
+  </span>
+  <hr>
+  <p>
+	Andha Manasu Irukkey, Adhaan Kadavul!
+  </p>
+  </div>
+  </div>
+  
+  
+  
+  </div>
+  
+  </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  
+  </body>
+  </html>
