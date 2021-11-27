@@ -117,17 +117,23 @@ def profile():
 	return render_template("profile.html", email=email, posts=posts)
 
 
-@app.route('/edit')
-def edit():
+@app.route('/info')
+def info():
     username, password, database, hostname, port = parse()
     dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
     cursor = dbconn.cursor()
     cursor.execute(f"""SELECT * FROM client_cred WHERE id = %s""",[session['id']])
-    desc = cursor.description
-    column_names = [col[0] for col in desc]
-    data = [dict(zip(column_names, row))  
-        for row in cursor.fetchall()]
-    return render_template('edit.html', data = data)
+    data = cursor.fetchall()
+    info = []
+    for i in data[0][1:]:
+        info.append(i)
+
+    return render_template('info.html', info = info, email = session['user'])
+
+
+@app.route('/edit')
+def edit():
+    return render_template('edit.html')
 
 
 @app.route('/edit_info', methods=['POST'])

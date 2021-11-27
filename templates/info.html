@@ -1,0 +1,98 @@
+{% extends 'profile.html' %}
+{% block middle %}
+<div class="container jsjhr">
+    <div class="row skfjh">
+    
+    <div class="col-md-8">
+          <a href = "#"><button class="fluid ui button"><h3>Shout It Out   <i class="plus square icon"></i></h3></button></a><br>
+    <div class="box1">
+     <!---Put stuff here-->
+     <div class="col-md-12">
+        <div class="card mb-3">
+          <div class="card-body">
+     <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Full Name</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          {{ info[0] }} {{ info[1] }}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Email</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+            {{ email }}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Gender</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          {{ info[12] }}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Phone</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+            {{ info[7] }}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Age</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+            {{ info[2] }}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">City</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+            {{ info[3] }}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Ocupation</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+            {{ info[4] }}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Relationship Status</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+            {{ info[8] }}
+        </div>
+      </div>
+      <hr><br>
+      <div class="row">
+        <div class="col-sm-12">
+            <a href="/edit"><button type="submit" class="btn btn-primary btn-block mb-4">edit Details</button></a>
+        </div>
+      </div>
+    
+     <!---Put stuff here-->
+    </div>
+    </div>
+     </div>
+    </div>
+    </div>
+
+{% endblock %}
