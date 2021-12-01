@@ -15,8 +15,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
   <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  <script src="https://cdn.ckeditor.com/4.17.1/basic/ckeditor.js"></script>
   {% block style %}{% endblock %}
-
 </head>
 <body>
     
@@ -31,6 +31,8 @@
 <!--Main Navigation-->
 <header>
   <!-- Sidebar -->
+  {% block nav %}
+    {% if user_type == 'client' %}
   <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse " style="background-color: #EFEFEF;">
     <div class="position-sticky">
       <div class="list-group list-group-flush mx-3 mt-5">
@@ -49,10 +51,6 @@
           <i class="far fa-calendar-alt"></i><span> Events </span></a>
         <a href="/intern_listing" class="list-group-item list-group-item-action py-4 ripple">
           <i class="fas fa-user-graduate"></i><span> Internships </span></a>
-        <a href="#" class="list-group-item list-group-item-action py-4 ripple">
-          <i class="fas fa-cogs"></i><span> Settings </span></a> 
-        <a href="/logout" class="list-group-item list-group-item-action py-4 ripple">
-          <i class="fas fa-sign-out-alt"></i><span> Logout </span></a>
           <hr>
         <div class = 'list-group-item list-group-item-action py-1 ripple' style = 'background-color: #EFEFEF;'>
           <p style = 'color: #95959a;'>
@@ -98,8 +96,8 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
           <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Settins</a>
+            <a class="dropdown-item" href="#">Logout</a>
             <a class="dropdown-item" href="#">Something else here</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
@@ -113,6 +111,147 @@
   </nav>
   <!-- Navbar -->
 </header>
+
+{% elif user_type == 'therapist' %}
+<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse " style="background-color: #EFEFEF;">
+  <div class="position-sticky">
+    <div class="list-group list-group-flush mx-3 mt-5">
+      <a href="/profile" class="list-group-item list-group-item-action py-4 ripple"
+        ><i class="newspaper icon"></i><span> Feed </span></a
+      >
+      <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+        <i class="fas fa-bullhorn"></i><span> Your Shout It Outs </span></a
+      >
+      <a href="/info" class="list-group-item list-group-item-action py-4 ripple">
+        <i class="fas fa-id-card"></i><span> Your Profile </span>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+        <i class="fas fa-user-md"></i><span> Accepted Clients </span></a>
+      <a href="/ad_listing" class="list-group-item list-group-item-action py-4 ripple">
+        <i class="far fa-calendar-alt"></i><span> Events </span></a>
+      <a href="/intern_listing" class="list-group-item list-group-item-action py-4 ripple">
+        <i class="fas fa-user-graduate"></i><span> Internships </span></a>
+        <hr>
+      <div class = 'list-group-item list-group-item-action py-1 ripple' style = 'background-color: #EFEFEF;'>
+        <p style = 'color: #95959a;'>
+          <a href = '#'>About.</a>
+          <a href = '#'>Team.</a>
+          <a href = '#'>Terms.</a> 
+          <a href = '#'>Privacy.</a> 
+          <a href = '#'>Contact.</a>
+          <a href = '#'>Advertise.</a> 
+        </p>
+        </div>
+    </div>
+      </div>
+  </div>
+</nav>
+<!-- Sidebar -->
+
+<!-- Navbar -->
+<nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #A98FB8 ;">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#sidebarMenu"
+      aria-controls="sidebarMenu"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">
+      <p style = 'font-family: Special Elite, cursive; font-weight: 900; font-size: x-large;'>PFT</p>
+    </a>
+   
+    <!-- Right links -->
+    <ul class="navbar-nav ms-auto d-flex flex-row">
+      <!-- Notification dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" href="#">Settings</a>
+          <a class="dropdown-item" href="#">Logout</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Separated link</a>
+        </div>
+        
+      </li>
+      
+    </ul>
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+</header>
+  {% else %}
+  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse " style="background-color: #EFEFEF;">
+    <div class="position-sticky">
+      <div class="list-group list-group-flush mx-3 mt-5">
+        <a href="/profile" class="list-group-item list-group-item-action py-4 ripple"
+          ><i class="newspaper icon"></i><span> Feed </span></a>
+          <hr>
+        <div class = 'list-group-item list-group-item-action py-1 ripple' style = 'background-color: #EFEFEF;'>
+          <p style = 'color: #95959a;'>
+            <a href = '#'>About.</a>
+            <a href = '#'>Team.</a>
+            <a href = '#'>Terms.</a> 
+            <a href = '#'>Privacy.</a> 
+            <a href = '#'>Contact.</a>
+            <a href = '#'>Advertise.</a> 
+          </p>
+          </div>
+      </div>
+        </div>
+    </div>
+  </nav>
+  <!-- Sidebar -->
+
+  <!-- Navbar -->
+  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #A98FB8 ;">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#sidebarMenu"
+        aria-controls="sidebarMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">
+        <p style = 'font-family: Special Elite, cursive; font-weight: 900; font-size: x-large;'>PFT</p>
+      </a>
+     
+      <!-- Right links -->
+      <ul class="navbar-nav ms-auto d-flex flex-row">
+        <!-- Notification dropdown -->
+        
+        
+      </ul>
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+</header>
+
+
+  {% endif %}
+{% endblock %}
+
 <!--Main Navigation-->
 
 <!--Main layout-->
@@ -120,13 +259,25 @@
 <main style="margin-top: 0px;">
   <div class="container pt-4"></div>
 </main>
+
 <!--Main layout-->
-{% block middle %}
+
 <div class="container jsjhr">
 <div class="row skfjh">
 
 <div class="col-md-8">
-      <a href = "/add_new"><button class="fluid ui button"><h3>Shout It Out    <i class="plus square icon"></i></h3></button></a><br>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/profile">Feed</a></li>
+      <li class="breadcrumb-item"><a href="/ad_listing">Events</a></li>
+      <li class="breadcrumb-item"><a href="/intern_listing">Internships</a></li>
+    </ol>
+  </nav>
+ 
+
+  {% block middle %}
+  <br>
+<a href = "/add_new"><button class="fluid ui button"><h3>Shout It Out    <i class="plus square icon"></i></h3></button></a><br>
 
 {% for post_info in posts %}
 <div class="box1">
@@ -142,8 +293,9 @@
 </div>
 <hr>
 <p class="text-muted">
-  <h3>{{ post_info[2] }}</h3><br>
-  <pre>{{ post_info[3] }}</pre><br>
+  <h3>{{ post_info[2] }}</h3></p><br>
+  {{ post_info[3] }}<br>
+  <p>
   {% for tag in post_info[4].split(',') %}
 		<a href = "/" id = "white">#{{ tag }}</a><br>
 	{% endfor %}

@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request, session, f
 from urllib.parse import urlparse
 import psycopg2
 from datetime import date, datetime
+import html
 
 app = Flask(__name__)
 app.secret_key = 'hello_WORLD_##$$'
@@ -114,7 +115,7 @@ def profile():
 	cursor.execute(f"SELECT * FROM posts;")
 	posts = cursor.fetchall()
 	dbconn.commit()
-	return render_template("profile.html", email=email, posts=posts)
+	return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'])
 
 
 @app.route('/info')
@@ -128,7 +129,7 @@ def info():
     for i in data[0][1:]:
         info.append(i)
 
-    return render_template('info.html', info = info, email = session['user'])
+    return render_template('info.html', info = info, email = session['user'], user_type = session['user_type'])
 
 
 @app.route('/edit')
@@ -155,8 +156,8 @@ def edit_info():
         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
         cursor = dbconn.cursor()
         cursor.execute(f'''INSERT INTO client_cred 
-                            (first_name,last_name,phonenumber,age,city,occupation,concerns,relationship_status,timeperiod,emergency_contact,id,gender) 
-                            VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);'''
+                            (first_name,last_name,phonenumber,age,city,occupation,concerns,relationship_status,timeperiod,emergency_contact,id,gender,status) 
+                            VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);'''
                             ,(
                                 user_dict['first_name'],
                                 user_dict['last_name'],
@@ -169,7 +170,8 @@ def edit_info():
                                 user_dict['timeperiod'],
                                 user_dict['emergency_contact'],
                                 session['id'],
-                                user_dict['gender']
+                                user_dict['gender'],
+                                'free'
                             ))
         dbconn.commit()
         return redirect(url_for('profile'))
@@ -178,7 +180,7 @@ def edit_info():
 
 @app.route("/add_new")
 def add_new():
-	return render_template("note.html")
+	return render_template("note.html", user_type = session['user_type'])
 	
 	
 @app.route("/add", methods=["POST"])
@@ -206,17 +208,17 @@ def add():
 
 @app.route('/ad_listing')
 def ad_listing():
-    return render_template('ad_listing.html')
+    return render_template('ad_listing.html', user_type = session['user_type'])
 
 
 @app.route('/intern_listing')
 def intern_listing():
-    return render_template("intern_listing.html")
+    return render_template("intern_listing.html", user_type = session['user_type'])
 
 
 @app.route('/shoutitout')
 def shoutitout():
-    return render_template('shoutitout.html')
+    return render_template('shoutitout.html',user_type = session['user_type'])
 
 
 @app.route('/test2')
