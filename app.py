@@ -114,6 +114,7 @@ def profile():
 	cursor = dbconn.cursor()
 	cursor.execute(f"SELECT * FROM posts;")
 	posts = cursor.fetchall()
+
 	dbconn.commit()
 	return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'])
 
@@ -155,6 +156,7 @@ def edit_info():
         username, password, database, hostname, port = parse()
         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
         cursor = dbconn.cursor()
+        cursor.execute(f'''DELETE FROM client_cred WHERE id = %s''',[session['id']])
         cursor.execute(f'''INSERT INTO client_cred 
                             (first_name,last_name,phonenumber,age,city,occupation,concerns,relationship_status,timeperiod,emergency_contact,id,gender,status) 
                             VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);'''
@@ -171,7 +173,7 @@ def edit_info():
                                 user_dict['emergency_contact'],
                                 session['id'],
                                 user_dict['gender'],
-                                'free'
+                                'completed'
                             ))
         dbconn.commit()
         return redirect(url_for('profile'))
@@ -224,6 +226,27 @@ def shoutitout():
 @app.route('/test2')
 def test2():
     return render_template('test2.html')
+
+
+########################################### Profile Stuff #####################################
+
+@app.route('/interested_therapists')
+def interested_therapists():
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+    cursor.execute(f'''SELECT status FROM client_cred WHERE id = %s''',[session['id']])
+    status = cursor.fetchall()
+    dbconn.commit()
+    return render_template('interested_therapists.html', status = status)
+
+
+@app.route('/get_me_a_therapist')
+def get_me_a_therapist():
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+
 
 
 if __name__ == '__main__':

@@ -1,0 +1,29 @@
+{% extends 'profile.html' %}
+{% block middle %}
+
+<div class="box1">
+    
+    <!---Put stuff here-->
+
+    {% if status[0][0] == 'completed' %}
+    <p>
+        Click here to Enroll in our Free Therpay Program. <a href = '#'>Get me a Therapist</a>
+    </p>
+
+    {% elif status[0][0] == 'free' %}
+    <p>
+        We've Forwarded your info to our therapists. We'll let you know when a therapist is intersted.
+    </p>
+
+    {% elif status[0][0] == None %}
+    <p>
+        Please Complete your profile to Avail Free Therapy.
+    </p>
+
+    {% endif %}
+    <!---Put stuff here-->
+   
+   </div>
+   </div>
+
+{% endblock %}
