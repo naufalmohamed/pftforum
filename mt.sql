@@ -7,4 +7,5 @@ CREATE TABLE IF NOT EXISTS posts (
     description TEXT NOT NULL,
     tags VARCHAR(500) NOT NULL,
     date VARCHAR(50) NOT NULL,
-    time VARCHAR(50) NOT NULL);
+    time VARCHAR(50) NOT NULL,
+    likes INT NOT NULL);

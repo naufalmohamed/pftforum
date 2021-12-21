@@ -3,10 +3,12 @@ from urllib.parse import urlparse
 import psycopg2
 from datetime import date, datetime
 import html
+import random
 
 app = Flask(__name__)
 app.secret_key = 'hello_WORLD_##$$'
 
+avatar_names = ['Peter Parker', 'Bruce Wayne', 'Stephen Strange', 'Clark Kent', 'Natasha Romanoff']
 
 def parse(): #parses through the DB Creds (gotta find a better method)
 	result = urlparse("postgres://tflhplllsjtczu:d05ce0107a96ea44fe7e7b5d435bf3042388baf0fa08dc5bc488d7c6389057c4@ec2-3-217-91-165.compute-1.amazonaws.com:5432/dd2lj96965ak4q")
@@ -116,7 +118,7 @@ def profile():
 	posts = cursor.fetchall()
 
 	dbconn.commit()
-	return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'])
+	return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'], avatar_name = random.choice(avatar_names))
 
 
 @app.route('/info')
@@ -196,6 +198,7 @@ def add():
     today = date.today()
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
+    zero = 0
 	
     if len(title_ret) == 0 and len(description_ret) == 0:
         return redirect(url_for("profile"))
@@ -203,9 +206,21 @@ def add():
     else:		
         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
         cursor = dbconn.cursor()
-        cursor.execute(f"""INSERT INTO posts (title,tags,description,user_id,date,time) VALUES (%s,%s,%s,%s,%s,%s);""",(title_ret,tags,description_ret,session['id'],today,current_time))
+        cursor.execute(f"""INSERT INTO posts (title,tags,description,user_id,date,time,likes) VALUES (%s,%s,%s,%s,%s,%s,%s);""",(title_ret,tags,description_ret,session['id'],today,current_time,zero))
         dbconn.commit()
         return redirect(url_for("profile"))
+
+
+@app.route('/peace/<int:post_id>')
+def peace(post_id):
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+    cursor.execute(f'''SELECT likes FROM posts WHERE post_id = %s''',[post_id])
+    likes = cursor.fetchall()
+    cursor.execute(f"""UPDATE posts SET likes = %s WHERE post_id = %s;""",(likes[0][0]+1,post_id))
+    dbconn.commit()
+    return redirect(url_for('profile'))
 
 
 @app.route('/ad_listing')
@@ -246,6 +261,7 @@ def get_me_a_therapist():
     username, password, database, hostname, port = parse()
     dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
     cursor = dbconn.cursor()
+    dbconn.commit()
 
 
 

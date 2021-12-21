@@ -287,7 +287,7 @@
 
     </div>
     <div class="pl-2 pt-1">
-        <h6>Peter Parker (posted on {{ post_info[5] }})</h6>
+        <h6>{{ avatar_name }} (posted on {{ post_info[5] }})</h6>
     </div>
  
 </div>
@@ -309,11 +309,12 @@
 </div>
 <div class="d-flex justify-content-around">
     
+  <a href = '/peace/{{ post_info[0] }}'>
     <div>
       <i class="hand peace outline icon"></i>
-        Peace
+        Peace ({{post_info[7]}})
     </div>
-    
+  </a>
 </div>
 </div>
 {% endfor %}
