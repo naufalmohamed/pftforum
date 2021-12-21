@@ -99,6 +99,49 @@ def logout():
     return redirect(url_for('index'))
 
 
+########################################### Register Stuff #####################################
+
+
+@app.route('/register_client_page')
+def register_client_page():
+    return render_template('register.html')
+
+
+@app.route('/register_client', methods=['POST'])
+def register_client():
+    if request.method == 'POST':
+        username, password, database, hostname, port = parse()
+        email = request.form.get("email")
+        psw = request.form.get("psw")
+        psw_repeat = request.form.get("psw_repeat")
+        first_name = request.form.get("first_name")
+        last_name = request.form.get("last_name")
+        if psw != psw_repeat:
+            flash('Passwords Dont Match!')
+            return redirect(url_for('register_client_page'))
+        else:
+            if len(psw) < 8:
+                flash('Password Must be 8 Characters Long!')
+                return redirect(url_for('register_client_page'))
+            else:
+                dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+                cursor = dbconn.cursor()
+                cursor.execute(f'''SELECT user_id FROM cred WHERE email = %s ;''',[email])
+                cl = cursor.fetchall()
+                if len(cl) == 0:
+                    cursor.execute(f"""INSERT INTO cred (email, password, type) VALUES (%s,%s,%s);""",(email,psw,'client'))
+                    cursor.execute(f'''SELECT user_id FROM cred WHERE email = %s ;''',[email])
+                    id = cursor.fetchall()
+                    cursor.execute(f"""INSERT INTO client_cred (id, first_name, last_name) VALUES (%s,%s,%s);""",(id[0][0],first_name,last_name))
+                    dbconn.commit()
+                    return redirect('login_page_client')
+                else:
+                    dbconn.commit()
+                    flash('User Already Exists!')
+                    return redirect(url_for('register_client_page'))
+
+
+
 ########################################### Index Stuff #####################################
 
 @app.route('/')
@@ -110,16 +153,25 @@ def index():
 
 @app.route('/profile')
 def profile():
-	email = session['user']
-	username, password, database, hostname, port = parse()
-	dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
-	cursor = dbconn.cursor()
-	cursor.execute(f"SELECT * FROM posts;")
-	posts = cursor.fetchall()
+    if 'user' in session:
+        email = session['user']
+        username, password, database, hostname, port = parse()
+        dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+        cursor = dbconn.cursor()
+        cursor.execute(f"SELECT * FROM posts;")
+        posts = cursor.fetchall()
 
-	dbconn.commit()
-	return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'], avatar_name = random.choice(avatar_names))
+        dbconn.commit()
+        return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'], avatar_name = random.choice(avatar_names))
+    else:
+        username, password, database, hostname, port = parse()
+        dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+        cursor = dbconn.cursor()
+        cursor.execute(f"SELECT * FROM posts;")
+        posts = cursor.fetchall()
 
+        dbconn.commit()
+        return render_template("profile.html", posts=posts, avatar_name = random.choice(avatar_names))
 
 @app.route('/info')
 def info():
@@ -225,8 +277,10 @@ def peace(post_id):
 
 @app.route('/ad_listing')
 def ad_listing():
-    return render_template('ad_listing.html', user_type = session['user_type'])
-
+    if 'user' in session:
+        return render_template('ad_listing.html', user_type = session['user_type'])
+    else:
+        return render_template('ad_listing.html')
 
 @app.route('/intern_listing')
 def intern_listing():
@@ -235,7 +289,7 @@ def intern_listing():
 
 @app.route('/shoutitout')
 def shoutitout():
-    return render_template('shoutitout.html',user_type = session['user_type'])
+    return render_template('shoutitout.html', user_type = session['user_type'])
 
 
 @app.route('/test2')
@@ -253,7 +307,7 @@ def interested_therapists():
     cursor.execute(f'''SELECT status FROM client_cred WHERE id = %s''',[session['id']])
     status = cursor.fetchall()
     dbconn.commit()
-    return render_template('interested_therapists.html', status = status)
+    return render_template('interested_therapists.html', status = status, user_type = session['user_type'])
 
 
 @app.route('/get_me_a_therapist')
@@ -267,3 +321,4 @@ def get_me_a_therapist():
 
 if __name__ == '__main__':
     app.run(debug=True)
+  
