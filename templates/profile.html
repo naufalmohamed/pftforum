@@ -39,18 +39,14 @@
         <a href="/profile" class="list-group-item list-group-item-action py-4 ripple"
           ><i class="newspaper icon"></i><span> Feed </span></a
         >
-        <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+        <a href="/your_shout_it_outs" class="list-group-item list-group-item-action py-4 ripple">
           <i class="fas fa-bullhorn"></i><span> Your Shout It Outs </span></a
         >
         <a href="/info" class="list-group-item list-group-item-action py-4 ripple">
           <i class="fas fa-id-card"></i><span> Your Profile </span>
         </a>
         <a href="/interested_therapists" class="list-group-item list-group-item-action py-4 ripple">
-          <i class="fas fa-user-md"></i><span> Interested Therapists </span></a>
-        <a href="/ad_listing" class="list-group-item list-group-item-action py-4 ripple">
-          <i class="far fa-calendar-alt"></i><span> Events </span></a>
-        <a href="/intern_listing" class="list-group-item list-group-item-action py-4 ripple">
-          <i class="fas fa-user-graduate"></i><span> Internships </span></a>
+          <i class="fas fa-user-md"></i><span> Avail Free Therapy </span></a>
           <hr>
         <div class = 'list-group-item list-group-item-action py-1 ripple' style = 'background-color: #EFEFEF;'>
           <p style = 'color: #95959a;'>
@@ -96,7 +92,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
           <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">Settins</a>
+            <a class="dropdown-item" href="#">Settings</a>
             <a class="dropdown-item" href="/logout">Logout</a>
             <a class="dropdown-item" href="#">Something else here</a>
             <div class="dropdown-divider"></div>
@@ -122,15 +118,10 @@
       <a href="#" class="list-group-item list-group-item-action py-4 ripple">
         <i class="fas fa-bullhorn"></i><span> Your Shout It Outs </span></a
       >
-      <a href="/info" class="list-group-item list-group-item-action py-4 ripple">
-        <i class="fas fa-id-card"></i><span> Your Profile </span>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+      <a href="/client_pool" class="list-group-item list-group-item-action py-4 ripple">
+        <i class="fas fa-user-md"></i><span> Client Pool </span></a>
+      <a href="/accepted_clients" class="list-group-item list-group-item-action py-4 ripple">
         <i class="fas fa-user-md"></i><span> Accepted Clients </span></a>
-      <a href="/ad_listing" class="list-group-item list-group-item-action py-4 ripple">
-        <i class="far fa-calendar-alt"></i><span> Events </span></a>
-      <a href="/intern_listing" class="list-group-item list-group-item-action py-4 ripple">
-        <i class="fas fa-user-graduate"></i><span> Internships </span></a>
         <hr>
       <div class = 'list-group-item list-group-item-action py-1 ripple' style = 'background-color: #EFEFEF;'>
         <p style = 'color: #95959a;'>
@@ -266,15 +257,26 @@
 <div class="row skfjh">
 
 <div class="col-md-8">
+  {% with messages = get_flashed_messages() %}
+	{% if messages %}
+		<div class="alert alert-danger" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+				{% for message in messages %}
+					{{message}}
+				{% endfor %}
+		</div>
+	{% endif %}
+{% endwith %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/profile">Feed</a></li>
+      <li class="breadcrumb-item"><a href="/profile">Shout It Outs</a></li>
       <li class="breadcrumb-item"><a href="/ad_listing">Events</a></li>
       <li class="breadcrumb-item"><a href="/intern_listing">Internships</a></li>
     </ol>
   </nav>
  
-
 {% block middle %}
   <br>
 <a href = "/add_new"><button class="fluid ui button"><h3>Shout It Out    <i class="plus square icon"></i></h3></button></a><br>

@@ -1,0 +1,63 @@
+{% extends 'profile.html' %}
+{% block middle %}
+
+<div class="box1">
+    
+    <!---Put stuff here-->
+
+    <br>
+    <a href = "/add_new"><button class="fluid ui button"><h3>Shout It Out    <i class="plus square icon"></i></h3></button></a><br>
+    
+    {% for post_info in posts %}
+    <div class="box1">
+    <div class="d-flex skfjkk">
+        <div class="lkt40">
+            <img src="static/images/img/1.jpg" alt="">
+    
+        </div>
+        <div class="pl-2 pt-1">
+            <h6>{{ avatar_name }} (posted on {{ post_info[5] }})</h6>
+        </div>
+     
+    </div>
+    <hr>
+    <p class="text-muted">
+      <h3>{{ post_info[2] }}</h3></p><br>
+      {{ post_info[3] }}<br>
+      <p>
+      {% for tag in post_info[4].split(',') %}
+            <a href = "/" id = "white">#{{ tag }}</a><br>
+        {% endfor %}
+    </p>
+    <hr>
+    <div>
+    
+    </div>
+    <div>
+        
+    </div>
+    <div class="d-flex justify-content-around">
+        
+      <a href = '/peace/{{ post_info[0] }}'>
+        <div>
+          <i class="hand peace outline icon"></i>
+            Peace ({{post_info[7]}})
+        </div>
+      </a>
+      <a href = '#'>
+        <div>
+          <i class="fas fa-trash"></i>
+            Delete
+        </div>
+      </a>
+    </div>
+    </div>
+    {% endfor %}
+    
+    
+    <!---Put stuff here-->
+   
+   </div>
+   </div>
+
+{% endblock %}

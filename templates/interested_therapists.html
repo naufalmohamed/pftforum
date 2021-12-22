@@ -7,7 +7,7 @@
 
     {% if status[0][0] == 'completed' %}
     <p>
-        Click here to Enroll in our Free Therpay Program. <a href = '#'>Get me a Therapist</a>
+        Click here to Enroll in our Free Therpay Program. <a href = 'get_me_a_therapist'>Get me a Therapist</a>
     </p>
 
     {% elif status[0][0] == 'free' %}
@@ -18,6 +18,11 @@
     {% elif status[0][0] == None %}
     <p>
         Please Complete your profile to Avail Free Therapy.
+    </p>
+
+    {% elif status[0][0] == 'accepted' %}
+    <p>
+        A therapist has Shown Interest in your profile. We've provided him/her your contact details. They'll get in touch with you shortly.
     </p>
 
     {% endif %}

@@ -25,8 +25,8 @@ def parse(): #parses through the DB Creds (gotta find a better method)
 def login_page_client():
     if 'user' in session:
             flash('User Already in Session! Logout To Continue as a Different User!')
-            if session['user_type'] == 'therapist':
-                return redirect(url_for('index'))
+            if session['user_type'] == 'therapist' or session['user_type'] == 'client':
+                return redirect(url_for('profile'))
             else:
                 return redirect(url_for('index'))
     else:
@@ -38,8 +38,8 @@ def login():
     try:
         if 'user' in session:
             flash('User Already in Session! Logout To Continue as a Different User!')
-            if session['user_type'] == 'therapist':
-                return redirect(url_for('index'))
+            if session['user_type'] == 'therapist' or session['user_type'] == 'client':
+                return redirect(url_for('profile'))
             else:
                 return redirect(url_for('index'))
         else:
@@ -162,8 +162,10 @@ def profile():
         posts = cursor.fetchall()
 
         dbconn.commit()
+        flash(f'Hello {email}! Welcome to PFT')
         return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'], avatar_name = random.choice(avatar_names))
     else:
+        flash('Welcome to PFT! Please Create an Account to Avail Free Therapy')
         username, password, database, hostname, port = parse()
         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
         cursor = dbconn.cursor()
@@ -172,6 +174,18 @@ def profile():
 
         dbconn.commit()
         return render_template("profile.html", posts=posts, avatar_name = random.choice(avatar_names))
+
+
+@app.route('/your_shout_it_outs')
+def your_shout_it_outs():
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+    cursor.execute(f"SELECT * FROM posts WHERE user_id = %s;",[session['id']])
+    posts = cursor.fetchall()
+    dbconn.commit()
+    return render_template("your_shout_it_outs.html", posts=posts, user_type = session['user_type'], avatar_name = random.choice(avatar_names))
+
 
 @app.route('/info')
 def info():
@@ -307,7 +321,7 @@ def interested_therapists():
     cursor.execute(f'''SELECT status FROM client_cred WHERE id = %s''',[session['id']])
     status = cursor.fetchall()
     dbconn.commit()
-    return render_template('interested_therapists.html', status = status, user_type = session['user_type'])
+    return render_template('interested_therapists.html', status = status, user_type = 'client')
 
 
 @app.route('/get_me_a_therapist')
@@ -315,8 +329,57 @@ def get_me_a_therapist():
     username, password, database, hostname, port = parse()
     dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
     cursor = dbconn.cursor()
+    cursor.execute(f"""UPDATE client_cred SET status = %s WHERE id = %s;""",('free',session['id']))
+    dbconn.commit()
+    return redirect(url_for('interested_therapists'))
+
+
+@app.route('/client_pool')
+def client_pool():
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+    cursor.execute(f"""SELECT first_name, occupation, city, age, gender, concerns, timeperiod, id FROM client_cred WHERE status = %s;""",['free'])
+    client_info = cursor.fetchall()
     dbconn.commit()
 
+    return render_template('client_pool.html', client_info = client_info, user_type = 'therapist')
+
+
+@app.route('/accept_client/<int:client_id>')
+def accept_client(client_id):
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+    cursor.execute(f"""SELECT status FROM matches WHERE therapist_id = %s;""",[session['id']])
+    statuses = cursor.fetchall()
+    for status in statuses:
+        if status[0] == 'accepted':
+            engaged = True
+            break
+    if engaged:
+        dbconn.commit()
+        flash('You Cant Deal with more than One Client at a time!')
+        return redirect(url_for('accepted_clients'))
+    else:
+        cursor.execute(f"""UPDATE client_cred SET status = %s WHERE id = %s;""",('accepted',client_id))
+        cursor.execute(f"""INSERT INTO matches (client_id, therapist_id, start_date, status) VALUES (%s,%s,%s,%s);""",(client_id, session['id'],date.today(),'accepted'))
+        dbconn.commit()
+        return redirect(url_for('accepted_clients'))
+
+
+@app.route('/accepted_clients')
+def accepted_clients():
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+    cursor.execute(f"""SELECT client_id FROM matches WHERE status = %s AND therapist_id = %s;""",('accepted',session['id']))
+    accepted_clients = cursor.fetchall()
+    print(accepted_clients)
+    cursor.execute(f"""SELECT first_name, occupation, city, age, gender, concerns, timeperiod, id FROM client_cred WHERE id = %s;""",[accepted_clients[0][0]])
+    client_info = cursor.fetchall()
+    dbconn.commit()
+    return render_template('accepted_clients.html', client_info = client_info, user_type = 'therapist')
 
 
 if __name__ == '__main__':
