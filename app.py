@@ -9,6 +9,9 @@ app = Flask(__name__)
 app.secret_key = 'hello_WORLD_##$$'
 
 avatar_names = ['Peter Parker', 'Bruce Wayne', 'Stephen Strange', 'Clark Kent', 'Natasha Romanoff']
+avatar_links = ['https://upload.wikimedia.org/wikipedia/en/3/35/Supermanflying.png',
+'https://cdn.dribbble.com/users/1634115/screenshots/6245839/spiderman-dribbble.png?compress=1&resize=800x600',
+'https://www.dccomics.com/sites/default/files/Char_Gallery_Batman_DTC1018_6053f2162bdf03.97426416.jpg']
 
 def parse(): #parses through the DB Creds (gotta find a better method)
 	result = urlparse("postgres://tflhplllsjtczu:d05ce0107a96ea44fe7e7b5d435bf3042388baf0fa08dc5bc488d7c6389057c4@ec2-3-217-91-165.compute-1.amazonaws.com:5432/dd2lj96965ak4q")
@@ -163,7 +166,7 @@ def profile():
 
         dbconn.commit()
         flash(f'Hello {email}! Welcome to PFT')
-        return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'], avatar_name = random.choice(avatar_names))
+        return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'], avatar_names = avatar_names, random=random, avatar_links = avatar_links)
     else:
         flash('Welcome to PFT! Please Create an Account to Avail Free Therapy')
         username, password, database, hostname, port = parse()
@@ -173,7 +176,7 @@ def profile():
         posts = cursor.fetchall()
 
         dbconn.commit()
-        return render_template("profile.html", posts=posts, avatar_name = random.choice(avatar_names))
+        return render_template("profile.html", posts=posts, avatar_names=avatar_names,random=random, avatar_links = avatar_links)
 
 
 @app.route('/your_shout_it_outs')
@@ -184,7 +187,7 @@ def your_shout_it_outs():
     cursor.execute(f"SELECT * FROM posts WHERE user_id = %s;",[session['id']])
     posts = cursor.fetchall()
     dbconn.commit()
-    return render_template("your_shout_it_outs.html", posts=posts, user_type = session['user_type'], avatar_name = random.choice(avatar_names))
+    return render_template("your_shout_it_outs.html", posts=posts, user_type = session['user_type'], avatar_names=avatar_names,random=random, avatar_links = avatar_links)
 
 
 @app.route('/info')
@@ -225,9 +228,9 @@ def edit_info():
         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
         cursor = dbconn.cursor()
         cursor.execute(f'''DELETE FROM client_cred WHERE id = %s''',[session['id']])
-        cursor.execute(f'''INSERT INTO client_cred 
+        cursor.execute(f''' INTO client_cred 
                             (first_name,last_name,phonenumber,age,city,occupation,concerns,relationship_status,timeperiod,emergency_contact,id,gender,status) 
-                            VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);'''
+                            VALUES(%s,%s,INSERT%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);'''
                             ,(
                                 user_dict['first_name'],
                                 user_dict['last_name'],
@@ -282,7 +285,7 @@ def peace(post_id):
     username, password, database, hostname, port = parse()
     dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
     cursor = dbconn.cursor()
-    cursor.execute(f'''SELECT likes FROM posts WHERE post_id = %s''',[post_id])
+    cursor.execute(f'''SELECT likes FROM posts WHERE post_id = %s;''',[post_id])
     likes = cursor.fetchall()
     cursor.execute(f"""UPDATE posts SET likes = %s WHERE post_id = %s;""",(likes[0][0]+1,post_id))
     dbconn.commit()
@@ -291,14 +294,44 @@ def peace(post_id):
 
 @app.route('/ad_listing')
 def ad_listing():
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+    cursor.execute(f'''SELECT * FROM events;''')
+    events = cursor.fetchall()
+    dbconn.commit()
     if 'user' in session:
-        return render_template('ad_listing.html', user_type = session['user_type'])
+        return render_template('ad_listing.html', user_type = session['user_type'], events=events)
     else:
-        return render_template('ad_listing.html')
+        return render_template('ad_listing.html', events=events)
+
 
 @app.route('/intern_listing')
 def intern_listing():
-    return render_template("intern_listing.html", user_type = session['user_type'])
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+    cursor.execute(f'''SELECT * FROM internships;''')
+    interns = cursor.fetchall()
+    dbconn.commit()
+    if 'user' in session:
+        return render_template('intern_listing.html', user_type = session['user_type'], interns=interns)
+    else:
+        return render_template('intern_listing.html', interns=interns)
+
+
+@app.route('/survey_listing')
+def survey_listing():
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+    cursor.execute(f'''SELECT * FROM survey;''')
+    surveys = cursor.fetchall()
+    dbconn.commit()
+    if 'user' in session:
+        return render_template('survey_listing.html', user_type = session['user_type'], surveys=surveys)
+    else:
+        return render_template('survey_listing.html', surveys=surveys)
 
 
 @app.route('/shoutitout')
@@ -380,6 +413,10 @@ def accepted_clients():
     client_info = cursor.fetchall()
     dbconn.commit()
     return render_template('accepted_clients.html', client_info = client_info, user_type = 'therapist')
+
+
+########################################### Events #####################################
+
 
 
 if __name__ == '__main__':

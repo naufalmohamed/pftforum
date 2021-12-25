@@ -12,11 +12,11 @@
     <div class="box1">
     <div class="d-flex skfjkk">
         <div class="lkt40">
-            <img src="static/images/img/1.jpg" alt="">
+            <img src="{{random.choice(avatar_links)}}" alt="">
     
         </div>
         <div class="pl-2 pt-1">
-            <h6>{{ avatar_name }} (posted on {{ post_info[5] }})</h6>
+            <h6>{{ random.choice(avatar_names) }} (posted on {{ post_info[5] }})</h6>
         </div>
      
     </div>
