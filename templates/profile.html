@@ -34,6 +34,7 @@
   {% block nav %}
     {% if user_type == 'client' %}
   <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse " style="background-color: #EFEFEF;">
+    
     <div class="position-sticky">
       <div class="list-group list-group-flush mx-3 mt-5">
         <a href="/profile" class="list-group-item list-group-item-action py-4 ripple"
@@ -69,17 +70,13 @@
     <!-- Container wrapper -->
     <div class="container-fluid">
       <!-- Toggle button -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-mdb-toggle="collapse"
-        data-mdb-target="#sidebarMenu"
-        aria-controls="sidebarMenu"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i class="fas fa-bars"></i>
-      </button>
+
+
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidebarMenu">
+        <span class="sr-only">Sidebar</span>
+        <span class="glyphicon glyphicon-check"></span>
+    </button>
+    
 
       <!-- Brand -->
       <a class="navbar-brand" href="#">
@@ -401,6 +398,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script>
+
+$('.sidebar-toggle').click(function(){
+     $('#sidebar').removeClass('hidden-xs');            
+});
+
+</script>
 {% block script %}{% endblock %}
 
 </body>
