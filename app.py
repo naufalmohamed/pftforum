@@ -67,6 +67,7 @@ def login():
                         session['user'] = email
                         session['id'] = cred[0][0]
                         session['user_type'] = 'therapist'
+                        flash(f'Hello {email}! Welcome to PFT')
                         return redirect(url_for('profile'))
                     else:
                         flash('Bad Credentials! Try Again!')
@@ -86,7 +87,7 @@ def login():
                         session['user'] = email
                         session['id'] = cred[0][0]
                         session['user_type'] = 'client'
-
+                        flash(f'Hello {email}! Welcome to PFT')
                         return redirect(url_for('profile'))
                     else:
                         flash('Bad Credentials! Try Again!')
@@ -165,7 +166,6 @@ def profile():
         posts = cursor.fetchall()
 
         dbconn.commit()
-        flash(f'Hello {email}! Welcome to PFT')
         return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'], avatar_names = avatar_names, random=random, avatar_links = avatar_links)
     else:
         flash('Welcome to PFT! Please Create an Account to Avail Free Therapy')
