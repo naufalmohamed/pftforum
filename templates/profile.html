@@ -88,13 +88,13 @@
       <ul class="navbar-nav ms-auto d-flex flex-row">
         <!-- Notification dropdown -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis-v"></i>
+          </a>
           <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">Settings</a>
-            <a class="dropdown-item" href="/logout">Logout</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#">Change Password</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
+            <a class="dropdown-item" href="/logout">Logout</a>
           </div>
           
         </li>
@@ -156,13 +156,13 @@
     <ul class="navbar-nav ms-auto d-flex flex-row">
       <!-- Notification dropdown -->
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-ellipsis-v"></i>
+        </a>
         <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="#">Settings</a>
-          <a class="dropdown-item" href="/logout">Logout</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="#">Change Password</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
+          <a class="dropdown-item" href="#">Logout</a>
         </div>
         
       </li>
@@ -274,7 +274,7 @@
 <a href = "/add_new"><button class="fluid ui button"><h3>Shout It Out    <i class="plus square icon"></i></h3></button></a><br>
 
 {% for post_info in posts %}
-
+<section id='{{post_info[0]}}'>
 <div class="box1">
 <div class="d-flex skfjkk">
     <div class="lkt40">
@@ -312,6 +312,7 @@
   </a>
 </div>
 </div>
+</section>
 {% endfor %}
 </div>
 

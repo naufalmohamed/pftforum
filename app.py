@@ -289,7 +289,7 @@ def peace(post_id):
     likes = cursor.fetchall()
     cursor.execute(f"""UPDATE posts SET likes = %s WHERE post_id = %s;""",(likes[0][0]+1,post_id))
     dbconn.commit()
-    return redirect(url_for('profile'))
+    return redirect(url_for('profile', _anchor=post_id))
 
 
 @app.route('/ad_listing')
