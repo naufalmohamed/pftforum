@@ -3297,8 +3297,8 @@ fieldset:disabled .btn {
 }
 .btn-warning:hover {
   color: #fff;
-  background-color: #d9aa00;
-  border-color: #cca000;
+  background-color: #a98fb8;
+  border-color: #a98fb8;
 }
 .btn-check:focus + .btn-warning,
 .btn-warning:focus {
@@ -11744,7 +11744,7 @@ p {
 }
 #mainNav .navbar-nav .nav-item .nav-link.active,
 #mainNav .navbar-nav .nav-item .nav-link:hover {
-  color: #a98fb8;
+  color: #752e9f;
 }
 
 @media (min-width: 992px) {
