@@ -11739,12 +11739,12 @@ p {
     Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 0.95rem;
-  color: #fff;
+  color: #752e9f;
   letter-spacing: 0.0625em;
 }
 #mainNav .navbar-nav .nav-item .nav-link.active,
 #mainNav .navbar-nav .nav-item .nav-link:hover {
-  color: #752e9f;
+  color: white;
 }
 
 @media (min-width: 992px) {
@@ -11770,7 +11770,7 @@ p {
   }
   #mainNav.navbar-shrink .navbar-brand {
     font-size: 1.25em;
-    color: white;
+    color: wheat;
   }
   #mainNav.navbar-shrink .navbar-brand svg,
   #mainNav.navbar-shrink .navbar-brand img {
@@ -11784,7 +11784,7 @@ p {
   }
 }
 header.masthead {
-  padding-top: 10.5rem;
+  padding-top: 11.5rem;
   padding-bottom: 6rem;
   text-align: center;
   color: #a98fb8;
@@ -11802,7 +11802,7 @@ header.masthead .masthead-subheading {
   font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  color: white;
+  color: #a98fb8;
 }
 header.masthead .masthead-heading {
   font-size: 3.25rem;
