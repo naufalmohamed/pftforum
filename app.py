@@ -8,10 +8,12 @@ import random
 app = Flask(__name__)
 app.secret_key = 'hello_WORLD_##$$'
 
-avatar_names = ['Peter Parker', 'Bruce Wayne', 'Stephen Strange', 'Clark Kent', 'Natasha Romanoff']
-avatar_links = ['https://upload.wikimedia.org/wikipedia/en/3/35/Supermanflying.png',
-'https://cdn.dribbble.com/users/1634115/screenshots/6245839/spiderman-dribbble.png?compress=1&resize=800x600',
-'https://www.dccomics.com/sites/default/files/Char_Gallery_Batman_DTC1018_6053f2162bdf03.97426416.jpg']
+avatars = [
+('Peter Parker','https://cdn.dribbble.com/users/1634115/screenshots/6245839/spiderman-dribbble.png?compress=1&resize=800x600'), 
+('Bruce Wayne','https://www.dccomics.com/sites/default/files/Char_Gallery_Batman_DTC1018_6053f2162bdf03.97426416.jpg'), 
+('Stephen Strange','https://www.denofgeek.com/wp-content/uploads/2021/09/what-if-episode-4-review.jpg?resize=768%2C432'), 
+('Clark Kent','https://upload.wikimedia.org/wikipedia/en/3/35/Supermanflying.png'), 
+('Natasha Romanoff','https://www.seekpng.com/png/full/435-4357026_black-widow-avengers-black-widow-cartoon.png')]
 
 def parse(): #parses through the DB Creds (gotta find a better method)
 	result = urlparse("postgres://tflhplllsjtczu:d05ce0107a96ea44fe7e7b5d435bf3042388baf0fa08dc5bc488d7c6389057c4@ec2-3-217-91-165.compute-1.amazonaws.com:5432/dd2lj96965ak4q")
@@ -67,7 +69,8 @@ def login():
                         session['user'] = email
                         session['id'] = cred[0][0]
                         session['user_type'] = 'therapist'
-                        flash(f'Hello {email}! Welcome to PFT')
+                        flash(f'Hello {email}!')
+                        flash('Welcome to PFT')
                         return redirect(url_for('profile'))
                     else:
                         flash('Bad Credentials! Try Again!')
@@ -87,7 +90,8 @@ def login():
                         session['user'] = email
                         session['id'] = cred[0][0]
                         session['user_type'] = 'client'
-                        flash(f'Hello {email}! Welcome to PFT')
+                        flash(f'Hello {email}!')
+                        flash('Welcome to PFT')
                         return redirect(url_for('profile'))
                     else:
                         flash('Bad Credentials! Try Again!')
@@ -166,9 +170,10 @@ def profile():
         posts = cursor.fetchall()
 
         dbconn.commit()
-        return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'], avatar_names = avatar_names, random=random, avatar_links = avatar_links)
+        return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'],random=random, avatars = avatars)
     else:
-        flash('Welcome to PFT! Please Create an Account to Avail Free Therapy')
+        flash('Welcome to PFT!')
+        flash('Please Create an Account to Avail Free Therapy')
         username, password, database, hostname, port = parse()
         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
         cursor = dbconn.cursor()
@@ -176,7 +181,7 @@ def profile():
         posts = cursor.fetchall()
 
         dbconn.commit()
-        return render_template("profile.html", posts=posts, avatar_names=avatar_names,random=random, avatar_links = avatar_links)
+        return render_template("profile.html", posts=posts,random=random, avatars = avatars)
 
 
 @app.route('/your_shout_it_outs')
@@ -187,7 +192,7 @@ def your_shout_it_outs():
     cursor.execute(f"SELECT * FROM posts WHERE user_id = %s;",[session['id']])
     posts = cursor.fetchall()
     dbconn.commit()
-    return render_template("your_shout_it_outs.html", posts=posts, user_type = session['user_type'], avatar_names=avatar_names,random=random, avatar_links = avatar_links)
+    return render_template("your_shout_it_outs.html", posts=posts, user_type = session['user_type'],random=random, avatars = avatars)
 
 
 @app.route('/info')
@@ -440,7 +445,7 @@ def search(tag):
 
 @app.route("/search_tags")
 def search_tags():  
-    return render_template('search_tags.html', posts = session['tag_list'], user_type = session['user_type'], avatar_names = avatar_names, random=random, avatar_links = avatar_links)
+    return render_template('search_tags.html', posts = session['tag_list'], user_type = session['user_type'], random=random, avatars = avatars)
 
 
 @app.route('/delete_post/<int:post_id>')

@@ -9,14 +9,15 @@
     <a href = "/add_new"><button class="fluid ui button"><h3>Shout It Out    <i class="plus square icon"></i></h3></button></a><br>
     
     {% for post_info in posts %}
+    {% set number = random.randint(0,4) %}
     <div class="box1">
     <div class="d-flex skfjkk">
         <div class="lkt40">
-            <img src="{{random.choice(avatar_links)}}" alt="">
+            <img src="{{avatars[number][1]}}" alt="">
     
         </div>
         <div class="pl-2 pt-1">
-            <h6>{{ random.choice(avatar_names) }} (posted on {{ post_info[5] }})</h6>
+            <h6>{{ avatars[number][0] }} (posted on {{ post_info[5] }})</h6>
         </div>
      
     </div>
