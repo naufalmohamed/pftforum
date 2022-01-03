@@ -162,7 +162,7 @@ def profile():
         username, password, database, hostname, port = parse()
         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
         cursor = dbconn.cursor()
-        cursor.execute(f"SELECT * FROM posts;")
+        cursor.execute(f"SELECT * FROM posts ORDER BY post_id DESC;")
         posts = cursor.fetchall()
 
         dbconn.commit()
@@ -172,7 +172,7 @@ def profile():
         username, password, database, hostname, port = parse()
         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
         cursor = dbconn.cursor()
-        cursor.execute(f"SELECT * FROM posts;")
+        cursor.execute(f"SELECT * FROM posts ORDER BY post_id DESC;")
         posts = cursor.fetchall()
 
         dbconn.commit()
@@ -415,8 +415,32 @@ def accepted_clients():
     return render_template('accepted_clients.html', client_info = client_info, user_type = 'therapist')
 
 
-########################################### Events #####################################
+########################################### Find tag #####################################
 
+@app.route("/search/<tag>")
+def search(tag):
+    email = session['user']
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+    cursor.execute(f"SELECT * FROM posts;")
+    posts = cursor.fetchall()
+    dbconn.commit()
+    tag_list = []
+
+    for post in posts:
+        tag_array = post[4].split(',')
+        for tagg in tag_array:
+            if tagg == tag:
+                print(post)
+                tag_list.append(post)
+    session['tag_list'] = tag_list
+    return redirect(url_for('search_tags'))
+
+
+@app.route("/search_tags")
+def search_tags():  
+    return render_template('search_tags.html', posts = session['tag_list'], user_type = session['user_type'], avatar_names = avatar_names, random=random, avatar_links = avatar_links)
 
 
 if __name__ == '__main__':

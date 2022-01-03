@@ -113,7 +113,7 @@
       <a href="/profile" class="list-group-item list-group-item-action py-4 ripple"
         ><i class="newspaper icon"></i><span> Feed </span></a
       >
-      <a href="#" class="list-group-item list-group-item-action py-4 ripple">
+      <a href="/your_shout_it_outs" class="list-group-item list-group-item-action py-4 ripple">
         <i class="fas fa-bullhorn"></i><span> Your Shout It Outs </span></a
       >
       <a href="/client_pool" class="list-group-item list-group-item-action py-4 ripple">
@@ -201,17 +201,11 @@
     <!-- Container wrapper -->
     <div class="container-fluid">
       <!-- Toggle button -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-mdb-toggle="collapse"
-        data-mdb-target="#sidebarMenu"
-        aria-controls="sidebarMenu"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidebarMenu">
+        <span class="sr-only">Sidebar</span>
+        <span class="glyphicon glyphicon-check"></span>
         <i class="fas fa-bars"></i>
-      </button>
+    </button>
 
       <!-- Brand -->
       <a class="navbar-brand" href="#">
@@ -272,7 +266,6 @@
 {% block middle %}
   <br>
 <a href = "/add_new"><button class="fluid ui button"><h3>Shout It Out    <i class="plus square icon"></i></h3></button></a><br>
-
 {% for post_info in posts %}
 <section id='{{post_info[0]}}'>
 <div class="box1">
@@ -292,16 +285,14 @@
   {{ post_info[3] }}<br>
   <p>
   {% for tag in post_info[4].split(',') %}
-		<a href = "/" id = "white">#{{ tag }}</a><br>
+		<a href = "/search/{{tag}}" id = "white">#{{ tag }}</a><br>
 	{% endfor %}
 </p>
 <hr>
 <div>
 
 </div>
-<div>
-    
-</div>
+
 <div class="d-flex justify-content-around">
     
   <a href = '/peace/{{ post_info[0] }}'>
