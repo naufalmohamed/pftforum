@@ -443,6 +443,24 @@ def search_tags():
     return render_template('search_tags.html', posts = session['tag_list'], user_type = session['user_type'], avatar_names = avatar_names, random=random, avatar_links = avatar_links)
 
 
+@app.route('/delete_post/<int:post_id>')
+def delete_post(post_id):
+    id = session['id']
+    username, password, database, hostname, port = parse()
+    dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
+    cursor = dbconn.cursor()
+    cursor.execute(f"SELECT user_id FROM posts WHERE post_id = %s;",[post_id])
+    user_id = cursor.fetchall()
+    if user_id[0][0] == id:
+        cursor.execute(f"DELETE FROM posts WHERE post_id = %s;",[post_id])
+        dbconn.commit()
+        flash('Post Deleted Successfully')
+        return redirect(url_for('your_shout_it_outs'))
+    else:
+        dbconn.commit()
+        flash('Unauthorized Action')
+        return redirect(url_for('profile'))
+
 if __name__ == '__main__':
     app.run(debug=True)
   
