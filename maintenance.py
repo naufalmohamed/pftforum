@@ -1,29 +1,85 @@
-from urllib.parse import urlparse
 import psycopg2
 
-def parse():
-	result = urlparse("postgres://tflhplllsjtczu:d05ce0107a96ea44fe7e7b5d435bf3042388baf0fa08dc5bc488d7c6389057c4@ec2-3-217-91-165.compute-1.amazonaws.com:5432/dd2lj96965ak4q")
-	username = result.username
-	password = result.password
-	database = result.path[1:]
-	hostname = result.hostname
-	port = result.port
-	return username, password, database, hostname, port
+def create_tables():
+    commands = [
+        """
+        CREATE TABLE IF NOT EXISTS cred (
+            user_id SERIAL PRIMARY KEY NOT NULL,
+            email VARCHAR(254) NOT NULL,
+            password VARCHAR(18) NOT NULL,
+            type VARCHAR(10) NOT NULL
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS client_cred (
+            id SERIAL PRIMARY KEY REFERENCES cred(user_id) NOT NULL,
+            first_name VARCHAR(30) NOT NULL,
+            last_name VARCHAR(30) NOT NULL,
+            age VARCHAR(3),
+            city VARCHAR(50),
+            occupation VARCHAR(20),
+            concerns VARCHAR,
+            phonenumber VARCHAR(20),
+            emergency_contact VARCHAR(20),
+            relationship_status VARCHAR(50),
+            status VARCHAR(15),
+            therapist VARCHAR,
+            timeperiod VARCHAR(50),
+            gender VARCHAR(50)
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS therapist_cred (
+            id SERIAL PRIMARY KEY REFERENCES cred(user_id) NOT NULL,
+            first_name VARCHAR(30) NOT NULL,
+            last_name VARCHAR(30) NOT NULL,
+            languages VARCHAR NOT NULL,
+            specializations VARCHAR NOT NULL,
+            mode VARCHAR NOT NULL,
+            medium VARCHAR NOT NULL,
+            phonenumber VARCHAR NOT NULL
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS posts (
+            post_id SERIAL PRIMARY KEY NOT NULL,
+            user_id SERIAL REFERENCES cred(user_id) NOT NULL,
+            title VARCHAR(100) NOT NULL,
+            description TEXT NOT NULL,
+            tags VARCHAR(500) NOT NULL,
+            date VARCHAR(50) NOT NULL,
+            time VARCHAR(50) NOT NULL,
+            likes INT
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS matches (
+            id SERIAL PRIMARY KEY NOT NULL,
+            client_id SERIAL REFERENCES cred(user_id) NOT NULL,
+            therapist_id SERIAL REFERENCES cred(user_id) NOT NULL,
+            start_date VARCHAR(50) NOT NULL,
+            end_date VARCHAR(50),
+            status VARCHAR(20) NOT NULL
+        )
+        """
+    ]
 
+    try:
+        # Replace these with your actual database connection details
+        dbconn = psycopg2.connect(
+            database="pft",
+            user="pft_user",
+            password="pft_password",
+            host="localhost",
+            port="5432"
+        )
+        cursor = dbconn.cursor()
+        for command in commands:
+            cursor.execute(command)
+        dbconn.commit()
+        cursor.close()
+        dbconn.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
 
-username, password, database, hostname, port = parse()
-dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
-cursor = dbconn.cursor()
-# sql = open("mt.sql", "r").read()
-# cursor.execute(sql)
-cursor.execute(f'''SELECT * FROM posts;''')
-cl = cursor.fetchall()
-cursor.execute(f'''SELECT * FROM client_cred;''')
-pl = cursor.fetchall()
-print(pl)
-print(cl)
-# cursor.execute(f"""INSERT INTO cred (email, password, type) VALUES (%s,%s,%s);""",('ramu@dubakoor.com','Ramu@123','therapist'))
-# cursor.execute(f"""INSERT INTO cred (email, password, type) VALUES (%s,%s,%s);""",('madhan@dubakoor.com','Madhan@123','client'))
-# cursor.execute(f"""INSERT INTO cred (email, password, type) VALUES (%s,%s,%s);""",('arthur@dubakoor.com','Arthur@123','client'))
-# cursor.execute(f'''DELETE FROM posts;''')
-dbconn.commit()
+create_tables()

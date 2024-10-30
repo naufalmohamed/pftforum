@@ -16,13 +16,13 @@ avatars = [
 ('Natasha Romanoff','https://www.seekpng.com/png/full/435-4357026_black-widow-avengers-black-widow-cartoon.png')]
 
 def parse(): #parses through the DB Creds (gotta find a better method)
-	result = urlparse("postgres://tflhplllsjtczu:d05ce0107a96ea44fe7e7b5d435bf3042388baf0fa08dc5bc488d7c6389057c4@ec2-3-217-91-165.compute-1.amazonaws.com:5432/dd2lj96965ak4q")
-	username = result.username
-	password = result.password
-	database = result.path[1:]
-	hostname = result.hostname
-	port = result.port
-	return username, password, database, hostname, port
+    result = urlparse("postgres://pft_user:pft_password@localhost:5432/pft")
+    username = result.username
+    password = result.password
+    database = result.path[1:]
+    hostname = result.hostname
+    port = result.port
+    return username, password, database, hostname, port
 
 
 ########################################### Login Stuff #####################################
@@ -258,9 +258,9 @@ def edit_info():
 
 @app.route("/add_new")
 def add_new():
-	return render_template("note.html", user_type = session['user_type'])
-	
-	
+    return render_template("note.html", user_type = session['user_type'])
+    
+    
 @app.route("/add", methods=["POST"])
 def add():
     email = session['user']
@@ -273,7 +273,7 @@ def add():
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     zero = 0
-	
+    
     if len(title_ret) == 0 and len(description_ret) == 0:
         return redirect(url_for("profile"))
             
