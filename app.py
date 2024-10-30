@@ -4,9 +4,9 @@ import psycopg2
 from datetime import date, datetime
 import html
 import random
+from configparser import ConfigParser
 
 app = Flask(__name__)
-app.secret_key = 'hello_WORLD_##$$'
 
 avatars = [
 ('Peter Parker','https://cdn.dribbble.com/users/1634115/screenshots/6245839/spiderman-dribbble.png?compress=1&resize=800x600'), 
@@ -15,14 +15,18 @@ avatars = [
 ('Clark Kent','https://upload.wikimedia.org/wikipedia/en/3/35/Supermanflying.png'), 
 ('Natasha Romanoff','https://www.seekpng.com/png/full/435-4357026_black-widow-avengers-black-widow-cartoon.png')]
 
+config = ConfigParser()
+config.read('config.cfg')
+app.config['SECRET_KEY'] = config['flask']['SECRET_KEY']
+
 def parse(): #parses through the DB Creds (gotta find a better method)
-    result = urlparse("postgres://pft_user:pft_password@localhost:5432/pft")
-	username = result.username
-	password = result.password
-	database = result.path[1:]
-	hostname = result.hostname
-	port = result.port
-	return username, password, database, hostname, port
+    result = urlparse(config['flask']['DB_URL'])
+    username = result.username
+    password = result.password
+    database = result.path[1:]
+    hostname = result.hostname
+    port = result.port
+    return username, password, database, hostname, port
 
 
 ########################################### Login Stuff #####################################

@@ -1,4 +1,9 @@
 import psycopg2
+from configparser import ConfigParser
+from urllib.parse import urlparse
+
+config = ConfigParser()
+config.read('config.cfg')
 
 def create_tables():
     commands = [
@@ -66,12 +71,18 @@ def create_tables():
 
     try:
         # Replace these with your actual database connection details
+        result = urlparse(config['flask']['DB_URL'])
+        username = result.username
+        password = result.password
+        database = result.path[1:]
+        hostname = result.hostname
+        port = result.port
         dbconn = psycopg2.connect(
-            database="pft",
-            user="pft_user",
-            password="pft_password",
-            host="localhost",
-            port="5432"
+            database=database,
+            user=username,
+            password=password,
+            host=hostname,
+            port=port
         )
         cursor = dbconn.cursor()
         for command in commands:
