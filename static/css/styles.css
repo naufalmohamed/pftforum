@@ -11790,10 +11790,20 @@ header.masthead {
   color: #a98fb8;
   background-image: url("../assets/img/header-bg.jpg");
   background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center center;
-  background-size: cover;
+  background-position: center center; /* Ensure the image is centered */
+  background-size: contain; /* Ensure the full image is displayed */
+  background-attachment: fixed; /* Keeps the image fixed while scrolling */
+  min-height: 100vh; /* Ensure the section height covers the full viewport */
 }
+
+@media (max-width: 768px) {
+  header.masthead {
+    background-attachment: scroll; /* Fix for mobile devices where fixed background doesn't work */
+    min-height: auto; /* Let the height adjust dynamically on smaller screens */
+  }
+}
+
+
 header.masthead .masthead-subheading {
   font-size: 1.5rem;
   font-style: italic;
