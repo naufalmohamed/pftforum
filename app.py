@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 avatars = [
 ('Peter Parker','https://cdn.dribbble.com/users/1634115/screenshots/6245839/spiderman-dribbble.png?compress=1&resize=800x600'), 
-('Bruce Wayne','https://www.dccomics.com/sites/default/files/Char_Gallery_Batman_DTC1018_6053f2162bdf03.97426416.jpg'), 
+('Bruce Wayne','https://imgs.search.brave.com/opiNW14omL7h-xUqmZp3qTMC-6NvAZsBzXFv8bA8AOk/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2FlL2E3/L2E5L2FlYTdhOTU1/MWNkYTFmODhjYzVl/NmU3ZWE1MjcwOWYx/LmpwZw'), 
 ('Stephen Strange','https://www.denofgeek.com/wp-content/uploads/2021/09/what-if-episode-4-review.jpg?resize=768%2C432'), 
 ('Clark Kent','https://upload.wikimedia.org/wikipedia/en/3/35/Supermanflying.png'), 
 ('Natasha Romanoff','https://www.seekpng.com/png/full/435-4357026_black-widow-avengers-black-widow-cartoon.png')]
@@ -262,7 +262,11 @@ def edit_info():
 
 @app.route("/add_new")
 def add_new():
-	return render_template("note.html", user_type = session['user_type'])
+    try:
+	    return render_template("note.html", user_type = session['user_type'])
+    except:
+        flash('Login to add posts!')
+        return redirect(url_for('profile'))
 	
 	
 @app.route("/add", methods=["POST"])
