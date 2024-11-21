@@ -74,7 +74,7 @@ def login():
                         session['id'] = cred[0][0]
                         session['user_type'] = 'therapist'
                         flash(f'Hello {email}!')
-                        flash('Welcome to PFT')
+                        flash('Welcome to CWT')
                         return redirect(url_for('profile'))
                     else:
                         flash('Bad Credentials! Try Again!')
@@ -95,7 +95,7 @@ def login():
                         session['id'] = cred[0][0]
                         session['user_type'] = 'client'
                         flash(f'Hello {email}!')
-                        flash('Welcome to PFT')
+                        flash('Welcome to CWT')
                         return redirect(url_for('profile'))
                     else:
                         flash('Bad Credentials! Try Again!')
@@ -176,7 +176,7 @@ def profile():
         dbconn.commit()
         return render_template("profile.html", email=email, posts=posts, user_type = session['user_type'],random=random, avatars = avatars)
     else:
-        flash('Welcome to PFT!')
+        flash('Welcome to CWT!')
         flash('Please Create an Account to Avail Free Therapy')
         username, password, database, hostname, port = parse()
         dbconn = psycopg2.connect(database = database,user = username,password = password,host = hostname,port = port)
@@ -471,5 +471,5 @@ def delete_post(post_id):
         return redirect(url_for('profile'))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
   
